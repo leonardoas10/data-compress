@@ -1,0 +1,65 @@
+service: datacompress
+
+useDotenv: true
+
+plugins:
+    - serverless-offline
+    - serverless-dotenv-plugin
+    - serverless-python-requirements
+provider:
+    name: aws
+    runtime: python3.9
+    region: us-east-1
+    tags:
+        PROYECT: DATA-COMPRESS
+
+package:
+    patterns:
+        - '!node_modules/**'
+        - '!env/**'
+
+functions:
+    # read-and-compress:
+    #     handler: lambdas/read-and-compress/handler.handler
+    #     description: Compress file stored in S3 buckets
+    #     memorySize: 10240
+    #     timeout: 900
+    #     environment:
+    #         DB_HOST: 'datacompress.c7s82rautvg8.us-east-1.rds.amazonaws.com'
+    #         DB_USERNAME: 'admin'
+    #         DB_PASSWORD: '8fwauRijuo8vTJpYlcqb'
+    #         DB_DATABASE: 'datacompress'
+    #         S3_URL: 'https://after.datacompression.click/'
+    #         S3_AFTER_COMPRESS_FILES: 'after-compress-files'
+    #     role: arn:aws:iam::121116659934:role/LambdaS3CloudWatchFullAccess
+    #     vpc:
+    #         subnetIds:
+    #             - 'subnet-07d11a6f1648decfa'
+    #             - 'subnet-0501a15d691993d19'
+    #             - 'subnet-015eb033be16f968f'
+    #         securityGroupIds:
+    #             - 'sg-056b5faca088fae6c'
+    signup-cognito-user-pool:
+        handler: lambdas/signup-cognito-user-pool/handler.handler
+        description: User Pool Cognito SignUp
+        memorySize: 128
+        timeout: 180
+        environment:
+            CLIENT_ID: '2r65lrstbgarqb4o9n980fr41r'
+        events:
+            - http:
+                  path: signup
+                  method: post
+                  cors: true
+    confirm-cognito-user:
+        handler: lambdas/confirm-cognito-user/handler.handler
+        description: User Pool Cognito Confirm Account
+        memorySize: 128
+        timeout: 180
+        environment:
+            CLIENT_ID: '2r65lrstbgarqb4o9n980fr41r'
+        events:
+            - http:
+                  path: confirm
+                  method: post
+                  cors: true
