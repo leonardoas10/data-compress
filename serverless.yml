@@ -39,6 +39,19 @@ functions:
     #             - 'subnet-015eb033be16f968f'
     #         securityGroupIds:
     #             - 'sg-056b5faca088fae6c'
+    signin-cognito-user-pool:
+        handler: lambdas/signin-cognito-user-pool/handler.handler
+        description: User Pool Cognito SignIn
+        memorySize: 128
+        timeout: 180
+        environment:
+            CLIENT_ID: '2r65lrstbgarqb4o9n980fr41r'
+            COGNITO_POOL_ID: 'us-east-1_L4VdUGCeu'
+        events:
+            - http:
+                  path: signin
+                  method: post
+                  cors: true
     signup-cognito-user-pool:
         handler: lambdas/signup-cognito-user-pool/handler.handler
         description: User Pool Cognito SignUp
