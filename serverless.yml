@@ -47,6 +47,8 @@ functions:
         environment:
             CLIENT_ID: '2r65lrstbgarqb4o9n980fr41r'
             COGNITO_POOL_ID: 'us-east-1_L4VdUGCeu'
+            IDENTITY_POOL_ID: 'us-east-1:f53cb12f-ee74-4a77-9035-cd520c4f0f97'
+            AWS_REGION: 'us-east-1'
         events:
             - http:
                   path: signin
